@@ -1,0 +1,14 @@
+name: gan_arte
+channels:
+  - pytorch
+  - conda-forge
+dependencies:
+  - python=3.8
+  - pytorch
+  - torchvision
+  - numpy
+  - matplotlib
+  - pyqt=5.15.0
+  - pip:
+    - pillow
+    - tqdm
