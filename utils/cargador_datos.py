@@ -11,7 +11,7 @@ def crear_cargador_datos(ruta_dataset, tamano_lote=32, tamano_imagen=64):
         transforms.CenterCrop(tamano_imagen),
         transforms.ToTensor(),
         transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5))
-
+        
     ])
     dataset = datasets.ImageFolder(ruta_dataset, transform=transform)
     return DataLoader(dataset, batch_size=tamano_lote, shuffle=True)

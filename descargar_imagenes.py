@@ -4,6 +4,7 @@ from bing_image_downloader import downloader
 
 downloader.download("City photos", limit=100, output_dir="./datasets/arte_b", adult_filter_off=True)
 
+
 """
 # CycleGAN B
 downloader.download("forest paintings", limit=20, output_dir="./datasets/arte_b", adult_filter_off=True)

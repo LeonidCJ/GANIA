@@ -39,6 +39,7 @@ class PanelModelo(QGroupBox):
         self.boton_dataset_b.clicked.connect(self.seleccionar_dataset_b)
 
         # Botón para cargar carpeta (usado en DCGAN y CycleGAN)
+        
         self.boton_cargar_carpeta = QPushButton("Seleccionar carpeta")
         self.boton_cargar_carpeta.clicked.connect(self.seleccionar_carpeta)
 
@@ -65,6 +66,7 @@ class PanelModelo(QGroupBox):
         self.actualizar_visibilidad_botones()
 
     def actualizar_visibilidad_botones(self):
+        
         modelo = self.selector_modelo.currentText()
         origen = self.selector_origen.currentText()
 

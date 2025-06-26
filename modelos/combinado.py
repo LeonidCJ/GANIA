@@ -7,6 +7,7 @@ import os
 class GeneradorArteCombinado:
     def __init__(self, dispositivo, dim_latente=100, canales_img=3, lr=0.0002):
         self.dispositivo = dispositivo
+        
 
         # Inicializar ambos modelos
         self.dcgan = EntrenadorDCGAN(dispositivo, dim_latente, canales_img, lr)

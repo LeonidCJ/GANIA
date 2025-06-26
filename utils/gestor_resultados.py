@@ -36,3 +36,4 @@ def registrar_log(modelo, epoca, ruta_imagen, archivo_log="resultados/log_result
     os.makedirs(os.path.dirname(archivo_log), exist_ok=True)
     with open(archivo_log, "a") as f:
         f.write(linea)
+        

@@ -296,5 +296,6 @@ class VentanaGAN(QMainWindow):
         if self.dcgan:
             imagen = self.generar_imagen_dcgan()
             self.pestana_dcgan.mostrar_imagen(imagen)
+            
 
         

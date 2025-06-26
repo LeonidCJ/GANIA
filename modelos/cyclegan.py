@@ -24,6 +24,7 @@ class EntrenadorCycleGAN:
         self.G_AB.apply(self._init_pesos)
 
     def _init_pesos(self, m):
+        
         classname = m.__class__.__name__
         if classname.find('Conv') != -1:
             nn.init.normal_(m.weight.data, 0.0, 0.02)

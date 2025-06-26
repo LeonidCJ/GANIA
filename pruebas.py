@@ -12,3 +12,4 @@ plt.imshow(grid.permute(1, 2, 0))  # Convierte a formato HWC
 plt.axis("off")
 plt.title("Imágenes generadas (ruido fijo)")
 plt.show()
+

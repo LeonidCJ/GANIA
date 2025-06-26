@@ -3,8 +3,11 @@ import torch.nn as nn
 
 class Generador(nn.Module):
     def __init__(self, dim_latente=100, canales_img=3):
+        
         super().__init__()
+        
         self.modelo = nn.Sequential(
+            
             # Entrada: [B, 100, 1, 1]
             nn.ConvTranspose2d(dim_latente, 512, 4, 1, 0, bias=False),  # [B, 512, 4, 4]
             nn.BatchNorm2d(512),

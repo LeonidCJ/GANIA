@@ -21,4 +21,5 @@ if __name__ == "__main__":
         import traceback
         print("¡Ocurrió un error crítico en la aplicación!")
         traceback.print_exc()
+        
 

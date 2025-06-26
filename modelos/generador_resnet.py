@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-class ResidualBlock(nn.Module):
+class ResidualBlock(nn.Module): 
     def __init__(self, canales):
         super().__init__()
         self.bloque = nn.Sequential(
@@ -16,6 +16,7 @@ class ResidualBlock(nn.Module):
 
 class GeneradorResNet(nn.Module):
     def __init__(self, canales_entrada=3, canales_salida=3, num_bloques=6):
+        
         super().__init__()
         modelo = [
             nn.Conv2d(canales_entrada, 64, 7, 1, 3, bias=False),
@@ -51,3 +52,5 @@ class GeneradorResNet(nn.Module):
 
     def forward(self, x):
         return self.modelo(x)
+    
+

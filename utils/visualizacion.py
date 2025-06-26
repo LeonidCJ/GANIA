@@ -51,3 +51,4 @@ def mostrar_evolucion_perdidas(lista_perdidas, nombres, titulo="Pérdidas durant
     plt.grid(True)
     plt.tight_layout()
     plt.show()
+    
