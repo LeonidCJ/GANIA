@@ -1,7 +1,7 @@
 from PIL import Image
 import os
 
-def redimensionar_imagenes(directorio, tamaño=(128, 128)):
+def redimensionar_imagenes(directorio, tamaño=(64, 64)):
     for subcarpeta in os.listdir(directorio):
         ruta = os.path.join(directorio, subcarpeta)
         if os.path.isdir(ruta):
@@ -15,6 +15,7 @@ def redimensionar_imagenes(directorio, tamaño=(128, 128)):
                     except Exception as e:
                         print(f"Error con {archivo}: {e}")
 
-# Ejecuta para arte_a y arte_b
+# Ejecuta para arte, arte_a y arte_b
+redimensionar_imagenes("./datasets/arte")
 redimensionar_imagenes("./datasets/arte_a")
 redimensionar_imagenes("./datasets/arte_b")

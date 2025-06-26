@@ -1,7 +1,6 @@
-import sys
+import sys 
 from PyQt5.QtWidgets import QApplication
 from interfaces.interfaz_pyqt.ventana_principal import VentanaGAN
-from utils.gestor_resultados import crear_estructura_resultados, guardar_imagen_tensor, nombre_archivo_epoca
 
 def principal():
     aplicacion = QApplication(sys.argv)
@@ -16,10 +15,10 @@ def principal():
     sys.exit(aplicacion.exec_())
 
 if __name__ == "__main__":
-    principal()
-    
-crear_estructura_resultados()
+    try:
+        principal()
+    except Exception as e:
+        import traceback
+        print("¡Ocurrió un error crítico en la aplicación!")
+        traceback.print_exc()
 
-# Luego, durante entrenamientoooo
-ruta_salida = nombre_archivo_epoca(epoca, modelo="dcgan")
-guardar_imagen_tensor(imagenes_generadas, ruta_salida)
