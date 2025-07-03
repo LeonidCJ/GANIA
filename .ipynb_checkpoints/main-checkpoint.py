@@ -5,7 +5,6 @@ from interfaces.interfaz_pyqt.ventana_principal import VentanaGAN
 def principal():
     aplicacion = QApplication(sys.argv)
     
-    # Cargar estilos
     from interfaces.interfaz_pyqt.estilos import cargar_estilos
     cargar_estilos(aplicacion)
     
@@ -21,5 +20,4 @@ if __name__ == "__main__":
         import traceback
         print("¡Ocurrió un error crítico en la aplicación!")
         traceback.print_exc()
-        
 
