@@ -1,6 +1,6 @@
 import torch.nn as nn
 
-class ResidualBlock(nn.Module): 
+class BloqueResidual(nn.Module): 
     def __init__(self, canales):
         super().__init__()
         self.bloque = nn.Sequential(
@@ -33,7 +33,7 @@ class GeneradorResNet(nn.Module):
         ]
 
         for _ in range(num_bloques):
-            modelo += [ResidualBlock(256)]
+            modelo += [BloqueResidual(256)]
 
         modelo += [
             nn.ConvTranspose2d(256, 128, 3, 2, 1, output_padding=1, bias=False),

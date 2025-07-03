@@ -15,7 +15,6 @@ def redimensionar_imagenes(directorio, tamaño=(64, 64)):
                     except Exception as e:
                         print(f"Error con {archivo}: {e}")
 
-# Ejecuta para arte, arte_a y arte_b
 redimensionar_imagenes("./datasets/arte")
 redimensionar_imagenes("./datasets/arte_a")
 redimensionar_imagenes("./datasets/arte_b")
