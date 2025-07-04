@@ -67,7 +67,8 @@ def crear_cargador_datos(ruta, tipo_gan, tamano_lote, tamano_imagen=64, indice_c
         transformar = transforms.Compose([
             transforms.Resize(tamano_imagen),
             transforms.ToTensor(),
-            transforms.Normalize((0.5, 0.5, 0.5), (0.5, 0.5, 0.5)),
+            transforms.Normalize((0.5, 0.5, 0.5),        
+                             (0.5, 0.5, 0.5))
         ])
         dataset_completo = datasets.CIFAR10(root='./datasets', train=True, download=True, transform=transformar)
 

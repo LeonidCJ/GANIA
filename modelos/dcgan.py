@@ -171,5 +171,7 @@ class EntrenadorDCGAN:
             tensor_img = self.generador(self.ruido_fijo[:1])
         self.generador.train()
         return tensor_img.cpu()
+    
+        
 
 
