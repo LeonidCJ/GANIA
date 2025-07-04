@@ -227,7 +227,7 @@ class VentanaGAN(QMainWindow):
                 elif origen_dataset == "CIFAR-10":
                     clase_cifar_idx = self.panel_controles.selector_cifar_clase.currentData()
                     clase_cifar_nombre = self.panel_controles.selector_cifar_clase.currentText()
-                    self.cargador_datos_A = crear_cargador_datos(None, tipo_gan='dcgan_cifar10', tamano_lote=64, tamano_imagen=32, indice_clase_cifar=clase_cifar_idx)
+                    self.cargador_datos_A = crear_cargador_datos(None, tipo_gan='dcgan_cifar10', tamano_lote=64, tamano_imagen=64, indice_clase_cifar=clase_cifar_idx)
                     self.dcgan = EntrenadorDCGAN(dispositivo, lr=tasa, tamano_img=32)
                     self.dcgan.ruido_fijo = torch.randn(64, 100, 1, 1, device=dispositivo)
                     self.escribir_log(f"DCGAN listo. Cargando dataset CIFAR-10 (Clase: {clase_cifar_nombre}).")
