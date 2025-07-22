@@ -6,7 +6,6 @@ def crear_estructura_resultados():
     carpetas = [
         "resultados/dcgan",
         "resultados/cyclegan",
-        "resultados/combinado"
     ]
     for carpeta in carpetas:
         os.makedirs(carpeta, exist_ok=True)
