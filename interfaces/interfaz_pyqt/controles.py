@@ -1,9 +1,7 @@
-from PyQt5.QtWidgets import (QGroupBox, QVBoxLayout, QLabel, QComboBox, QPushButton, QDoubleSpinBox, QFileDialog)
+from PyQt5.QtWidgets import (QGroupBox, QVBoxLayout, QLabel, QComboBox, QPushButton, QDoubleSpinBox, QFileDialog, QLineEdit, QSizePolicy) # Importar QSizePolicy
 from PyQt5.QtCore import pyqtSignal
 from PyQt5.QtGui import QPixmap, QImage
 import numpy as np
-from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
-from matplotlib.figure import Figure
 from PyQt5.QtCore import Qt
 import os
 
@@ -24,7 +22,7 @@ class PanelModelo(QGroupBox):
         self.etiqueta_origen = QLabel("Origen del dataset:")
         self.selector_origen = QComboBox()
         self.selector_origen.addItems(["Apple2Orange", "Carpeta local", "CIFAR-10"])
-        
+
         self.grupo_datos = QGroupBox("Configuración de Datos")
         self.disposicion_datos = QVBoxLayout()
 
@@ -39,7 +37,7 @@ class PanelModelo(QGroupBox):
         self.boton_cargar_carpeta_unica = QPushButton("Seleccionar carpeta de imágenes (para DCGAN o para dataset único)")
         self.etiqueta_carpeta_unica = QLabel("No se seleccionó carpeta")
         self.boton_cargar_carpeta_unica.clicked.connect(self.seleccionar_carpeta_unica)
-        
+
         self.etiqueta_cifar_clase = QLabel("Clase CIFAR-10:")
         self.selector_cifar_clase = QComboBox()
         self.selector_cifar_clase.addItem("0: avión", 0)
@@ -104,7 +102,7 @@ class PanelModelo(QGroupBox):
                 self.ruta_datos_a = None
                 self.etiqueta_carpeta_unica.setText("Origen no válido para DCGAN")
 
-        elif modelo == "CycleGAN" or modelo == "Combinado":
+        elif modelo == "CycleGAN":
             if origen == "Apple2Orange":
                 self.boton_cargar_carpeta_unica.setVisible(True)
                 self.etiqueta_carpeta_unica.setVisible(True)
@@ -127,8 +125,8 @@ class PanelModelo(QGroupBox):
                 self.ruta_datos_b = None
                 self.etiqueta_datos_a.setText("No se seleccionó dataset A")
                 self.etiqueta_datos_b.setText("No se seleccionó dataset B")
-                self.etiqueta_carpeta_unica.setText("Origen no válido para CycleGAN/Combinado")
-                
+                self.etiqueta_carpeta_unica.setText("Origen no válido para CycleGAN")
+
         if self.parent() and hasattr(self.parent(), "validar_inicio_entrenamiento"):
             self.parent().validar_inicio_entrenamiento()
 
@@ -162,7 +160,7 @@ class PanelModelo(QGroupBox):
             self.etiqueta_carpeta_unica.setText("No se seleccionó carpeta")
             self.ruta_datos_a = None
         self.actualizar_visibilidad_botones()
-            
+
 class PanelEntrenamiento(QGroupBox):
     senal_iniciar = pyqtSignal()
     senal_detener = pyqtSignal()
@@ -207,10 +205,10 @@ class PanelEntrenamiento(QGroupBox):
         self.senal_detener.emit()
         self.boton_iniciar.setEnabled(True)
         self.boton_detener.setEnabled(False)
-        
+
     def set_habilitar_inicio(self, habilitar: bool):
         self.boton_iniciar.setEnabled(habilitar)
-        
+
 class PanelVisualizacion(QGroupBox):
     def __init__(self, titulo="Visualización"):
         super().__init__(titulo)
@@ -220,7 +218,14 @@ class PanelVisualizacion(QGroupBox):
 
         self.etiqueta_imagen = QLabel("Esperando imagen...")
         self.etiqueta_imagen.setAlignment(Qt.AlignCenter)
-        self.disposicion.addWidget(self.etiqueta_imagen)
+
+        self.tamano_visualizacion = 512
+        self.etiqueta_imagen.setMinimumSize(self.tamano_visualizacion, self.tamano_visualizacion)
+        self.etiqueta_imagen.setSizePolicy(QSizePolicy.Expanding, QSizePolicy.Expanding)
+
+        self.disposicion.addStretch(1)
+        self.disposicion.addWidget(self.etiqueta_imagen, 0, Qt.AlignCenter) 
+        self.disposicion.addStretch(1)
 
     def mostrar_imagen(self, imagen_np):
         imagen_np = np.ascontiguousarray(imagen_np)
@@ -229,7 +234,13 @@ class PanelVisualizacion(QGroupBox):
         bytes_por_linea = canales * ancho
 
         qimage = QImage(imagen_np.data, ancho, alto, bytes_por_linea, QImage.Format_RGB888)
-        pixmap = QPixmap.fromImage(qimage).scaled(256, 256)
+
+        pixmap = QPixmap.fromImage(qimage).scaled(
+            self.etiqueta_imagen.width(), self.etiqueta_imagen.height(),
+            Qt.KeepAspectRatio, Qt.SmoothTransformation
+        )
+
+        self.etiqueta_imagen.setAlignment(Qt.AlignCenter)
         self.etiqueta_imagen.setPixmap(pixmap)
         self.imagen_actual = imagen_np
 
@@ -238,6 +249,9 @@ class PanelEstadisticas(QGroupBox):
         super().__init__("Estadísticas")
         self.disposicion = QVBoxLayout()
         self.setLayout(self.disposicion)
+
+        from matplotlib.backends.backend_qt5agg import FigureCanvasQTAgg as FigureCanvas
+        from matplotlib.figure import Figure
 
         self.figura = Figure(figsize=(5, 3))
         self.lienzo = FigureCanvas(self.figura)
